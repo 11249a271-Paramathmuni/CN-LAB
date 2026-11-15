@@ -1,0 +1,62 @@
+AIM:
+To learn Windows network commands and inspect ping and traceroute packets using Wireshark.
+
+WINDOWS COMMANDS
+
+1. Display IP configuration
+   ipconfig
+   ipconfig /all
+   ipconfig | findstr IPv4
+
+2. Test network connectivity
+   ping 127.0.0.1
+   ping 8.8.8.8
+   ping -n 10 google.com
+   ping -t google.com
+
+3. Inspect active connections and routing
+   netstat
+   netstat -a
+   netstat -n
+   netstat -o
+   netstat -ano
+   netstat -r
+   netstat -s
+   tasklist | findstr <PID>
+
+4. Perform DNS lookups and route tracing
+   nslookup google.com
+   nslookup -type=mx gmail.com
+   tracert -d 8.8.8.8
+   tracert -h 15 google.com
+
+5. Capture packets with Windows Packet Monitor (run Command Prompt as Administrator)
+   pktmon start --capture --pkt-size 0
+   ping 8.8.8.8
+   pktmon stop
+   pktmon format PktMon.etl -o packetlog.txt
+   pktmon etl2pcap PktMon.etl -o packetcapture.pcapng
+
+WIRESHARK FILTERS
+
+icmp
+icmp.type == 8
+icmp.type == 0
+icmp.type == 11
+
+PROCEDURE
+
+1. Open Command Prompt or PowerShell.
+2. Execute the commands above and record the observed IP, gateway, DNS, connection, and route information.
+3. Open Wireshark and select the active Wi-Fi or Ethernet interface.
+4. Start packet capture.
+5. Run ping -n 4 8.8.8.8 and tracert -d 8.8.8.8 in Command Prompt.
+6. Apply the display filter icmp in Wireshark.
+7. Inspect ICMP Echo Request, Echo Reply, and Time Exceeded packets.
+8. Stop the capture and save it as a .pcapng file if required.
+
+RESULT:
+The Windows network commands were executed and ping/traceroute packets were captured and examined using Wireshark.
+
+PRECAUTION:
+Capture traffic only on devices and networks for which you have permission.
